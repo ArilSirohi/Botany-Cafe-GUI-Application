@@ -1,0 +1,515 @@
+<Display>:
+
+	# Assigns the tokens of kivy file to variables in .py file 
+	
+	user_username: username
+	user_password: password
+	new_username: new_username
+	new_password: new_password
+	item_name: item_name
+	quantity: quantity 
+	user_age:age
+	user_address: address
+	
+	# Main background for the application. 
+	canvas:
+		Color:
+			rgba: 1,1,1,0.25
+		Rectangle:
+			size: self.size
+			pos: self.pos
+			source: 'main_image.jpg'
+
+	# Home Screen that user intracts with when applpication starts. 
+	Screen:
+		name: 'home_screen'
+		BoxLayout:
+			orientation: 'vertical'
+			padding: 75,75,75,75
+			spacing:30
+
+			Label:
+				text: 'Botany Local Cafe' 
+				font_size: 37
+				bold: True
+			Label:
+				text: root.greeting_message
+				font_size: 22
+				bold: False
+			Button:
+				text: 'Browse Items'
+				size:100, 50
+				font_size: 25
+				on_release:
+					root.play_click()
+					root.current = 'login_screen'
+					root.logged_in()
+
+			Button:
+				text: 'New Account'
+				size:100, 50
+				font_size: 25
+				on_release:
+					root.current = 'new_account_screen'
+					root.play_click()
+					
+			Button:
+				text: 'Help'
+				size:100, 50
+				font_size: 25
+				on_release:
+					root.current = 'Help'
+					root.play_click()
+					
+	# Login Screen where user enter their username and password to access cafe menu 
+	Screen:
+		name: 'login_screen'
+		BoxLayout:
+
+			orientation: 'vertical'
+			padding:75,75,75,75
+			spacing:10
+			Label:
+				text: 'Username'
+				font_size: 32
+				bold: True
+
+			TextInput:
+				id: username
+				hint_text: 'Enter your Username without spaces'
+				write_tab: False
+				multiline: False 
+				
+			Label:
+				text: 'Password'
+				font_size: 32
+				bold: True
+				
+			TextInput: 
+				id: password
+				hint_text: 'Enter your Password'
+				write_tab: False
+				multiline: False
+			Label:
+				text: root.error_message
+			
+			Button:
+				text: 'Menu'
+				font_size: 25
+				disabled: not root.menu_enabled
+				on_release:
+					root.play_click()
+					root.current = 'item_category_screen'
+					root.return_status()
+			Button:
+				text: 'Login'
+				font_size: 25
+				on_release:
+					root.play_click()
+					root.login_status()
+				
+			Button:
+				text: 'Return'
+				font_size: 25
+				on_release:
+					root.play_click()
+					root.current = 'home_screen'	
+					root.return_status()
+	
+	# New Account Screen where users register their account when starting application for first time 
+	Screen:
+		name: 'new_account_screen'
+		BoxLayout:
+			orientation: 'vertical'
+			padding:50,50,50,50
+			spacing:10
+
+			Label:
+				text: 'Username'
+				font_size: 32
+				bold: True
+
+			TextInput:
+				id: new_username
+				hint_text: 'Please enter a Username'
+				write_tab: False
+				multiline: False
+				
+			Label:
+				text: 'Enter Your Age in numerical'
+				font_size: 32
+				bold: True
+
+			TextInput:
+				id: age
+				hint_text: 'you must be over 16 years'
+				write_tab: False
+				multiline: False
+			Label:
+				text: 'Password' 
+				font_size: 32
+				bold: True
+
+			TextInput:
+				id: new_password
+				hint_text: 'Please enter a Password'
+				write_tab: False
+				multiline: False
+				
+			Label: 
+				text: root.error_message_2
+
+			Button:
+				text: 'Register'
+				size:100, 50
+				font_size: 25
+				on_release:
+					root.play_click()
+					root.new_account()
+			Button:
+				text: 'Return'
+				size:100, 50
+				font_size: 25
+				on_release:
+					root.play_click()
+					root.current = 'home_screen'
+					root.return_status()
+					
+    # Help Screen with instructions for using the application
+	Screen:
+		name: 'Help'
+		BoxLayout:
+			orientation: 'vertical'
+			padding:75,75,75,75
+			spacing:320
+
+			Label:
+				text: "\n\n\n\n\n\n\nClick 'Login' for existing account\nClick 'New Account' if you are a first time user\nChoose items from the menu and a delivery method!\n\nNote: Double Click is invalid input and results in\nred circles. Click again to remove them\n\nFor Further Inquiry- \nContact +64 1122 3456 23\n\n\nAll Rights Reserved 2022"
+				font_size: 25
+				bold: False
+				
+			Button:
+				text: 'Return'
+				size:10,10
+				font_size: 25
+				on_release:
+					root.current = 'home_screen'
+					root.play_click()
+
+	# Item Category Screen where user choose items from available categories 
+	Screen:
+		name: 'item_category_screen'
+		BoxLayout:
+			orientation: 'vertical'
+			padding:75,75,75,75
+			spacing:25
+
+			Label:
+				text: 'Please choose a category\n\n'
+				font_size: 32
+				bold: True
+
+			Label:
+				text:"Note: You can order items from\none category at a time\n\nFor example, after ordering 'Food' items\nyou can choose items from\n'Beverage' or 'Specials'"
+				font_size: 18
+
+			Label: 
+				text: root.error_message_2
+
+			Button:
+				text: 'Food'
+				size:100, 50
+				font_size: 25
+				on_release:
+					root.play_click()
+					root.category_1()
+					root.current = 'menu_screen'
+			
+			Button:
+				text: 'Specials'
+				size: 100,50
+				font_size: 25
+				on_release:
+					root.play_click()
+					root.category_3()
+					root.current = 'menu_screen'
+			
+			Button:
+				text: 'Beverages'
+				size:100, 50
+				font_size: 25
+				on_release:
+					root.play_click()
+					root.category_2()
+					root.current = 'menu_screen'
+
+	# Menu Screen where users choose items and add to their cart. They can access cart from checkout button
+	Screen:
+		name: 'menu_screen'
+		canvas:
+			Color:
+				rgba: 0.35,0.35,0.35,1
+			Rectangle:
+				size: self.size
+				pos: self.pos
+				source: 'menu_image.jpg'
+
+		canvas.before:
+			Rectangle:
+				pos:self.pos
+				size:self.size
+
+		GridLayout:
+			size:(root.width, root.height)
+			cols: 2
+			size_hint_x: None
+			size_hint_y: None
+			height: self.minimum_height
+
+			BoxLayout:
+
+				orientation: 'vertical'
+				padding:50,50,50,50
+				spacing:25
+
+				Label:
+					text:root.item_message
+					font_size: 18
+					bold: True
+					
+				TextInput:
+					id: item_name
+					hint_text: 'Enter Item Number (IN)'
+					write_tab: False
+					multiline: False
+						
+				TextInput:
+					id: quantity
+					hint_text: 'Enter quantity in numbers. Minimum is 1'
+					write_tab: False
+					multiline: False
+						
+				Button:
+					text: 'Add to Cart'
+					size:100, 50
+					font_size: 25
+					on_release:
+						root.play_cart()
+						root.add_item()		
+						
+				Button:
+					text: 'Checkout'
+					size: 100,50
+					font_size: 25
+					on_release:
+						root.play_click()
+						root.view_cart()
+						root.current = 'view_cart_screen'
+
+				Button:
+					text: 'Categories'
+					size:100, 50
+					font_size: 25
+					on_release:
+						root.play_click()
+						root.current = 'item_category_screen'
+						root.return_status()
+						root.clean_cart()
+
+			BoxLayout:
+
+				orientation: 'vertical'
+				padding:-100,-75,-25, 150
+				spacing:5
+				
+				Label:
+					text: root.category_heading
+					font_size: 20
+					bold: True
+					
+				Label:
+					text: root.items
+					font_size: 20
+					bold: False
+				
+				
+	# View Cart Screen that shows users their chosen items and whether they would like to change items 					
+	Screen:
+		name: 'view_cart_screen'
+		BoxLayout:
+			orientation: 'vertical'
+			padding:75,75,75,75
+			spacing:30
+
+			Label:
+				text: root.cart_message
+				font_size: 32
+				bold: True
+			Label:
+				text: root.items
+				font_size: 32
+			
+			Button:
+				text: 'Choose Delivery'
+				size:100, 50
+				font_size: 25
+				disabled: not root.delivery_enabled
+				on_release:
+					root.current = 'delievery_screen'
+			Button:
+				text: 'Delete Cart'
+				size:100, 50
+				font_size: 25
+				on_release:
+					root.play_click()
+					root.clean_cart()
+					root.return_status()
+					root.current = 'item_category_screen'
+					
+			Button:
+				text: 'Log Out'
+				size:100, 50
+				font_size: 25
+				on_release:
+					root.play_click()
+					root.current = 'home_screen'
+					root.return_status()
+					root.clean_cart()
+			
+	# Delievery Screen where users choose delivery type and place order 
+	Screen:
+		name: 'delievery_screen'
+		BoxLayout:
+			orientation: 'vertical'
+			padding:75,75,75,75
+			spacing:30
+
+			Label:
+				text: f'Please choose a delivery method.\nHome Delivery is extra $2'
+				font_size: 25
+				bold: True
+
+			Label:
+				text: root.delievery_message
+				font_size: 32
+				bold: True
+
+			Button:
+				text: 'Home Delivery'
+				size:100, 50
+				font_size: 25
+				on_release:
+					root.play_click()
+					root.current = 'address_screen'
+					
+			Button:
+				text: 'Online'
+				size:100, 50
+				font_size: 25
+				on_release:
+					root.play_order()
+					root.confirmed_order()
+					root.confirmed_address_online()
+					root.current = 'closing_screen'
+					 
+			Button:
+				text: 'Return'
+				size:100, 50
+				font_size: 25
+				on_release:
+					root.play_click()
+					root.current = 'view_cart_screen'
+	
+	# Address Screen where users enter thier address if they chose 'home delievery' otherwise order is placed and home address is sent as 'online'
+	Screen:
+		name: 'address_screen'
+		BoxLayout:
+			orientation: 'vertical'
+			padding:75,75,75,75
+			spacing:30
+
+			Label:
+				# items names with price 
+				text: 'Enter your Address'
+				font_size: 32
+				bold: True
+
+			TextInput:
+				id: address
+				hint_text: 'unit number,\nstreet name'
+				write_tab: False
+				#multiline: False
+
+			Label:
+				text: root.delievery_message
+				font_size: 22
+				bold: False
+
+			Button:
+				text: 'Confirm Order'
+				size:100, 50
+				font_size: 25
+				disabled: not root.delievery_confirmed
+				on_release:
+					root.play_order()
+					root.current = 'closing_screen'
+					root.confirmed_order()
+
+			Button:
+				text: 'Enter Address'
+				size:100, 50
+				font_size: 25
+				#disabled: root.delievery_confirmed
+				on_release:
+					root.play_click()
+					root.confirmed_address_home()
+				
+			Button:
+				text: 'Return'
+				size:100, 50
+				font_size: 25
+				on_release:
+					root.play_click()
+					root.clean_cart()
+					root.return_status()
+					root.current = 'item_category_screen'
+
+	# Closing Screen that thanks the user for placing their orders and using the application
+	Screen:
+		name: 'closing_screen'
+		BoxLayout:
+			orientation: 'vertical'
+			padding:75,75,75,75
+			spacing:55
+
+			Label:
+				# items names with price 
+				text: 'Your Order has been placed!\n\n'
+				font_size: 32
+				bold: True
+				
+			Label:
+				# items names with price 
+				text: 'Thank You for Shoppping with us!'
+				font_size: 25
+
+			Button:
+				text: 'Another Order'
+				size:100, 25
+				font_size: 25
+				on_release:
+					root.play_click()
+					root.current = 'item_category_screen'
+					root.return_status()
+					root.clean_cart()
+
+			Button:
+				text: 'Log Out'
+				size:100, 25
+				font_size: 25
+				on_release:
+					root.play_click()
+					root.current = 'home_screen'
+					root.return_status()
+
+</Display>
