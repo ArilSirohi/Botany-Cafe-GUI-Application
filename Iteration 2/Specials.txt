@@ -1,0 +1,10 @@
+Veg Delight $15
+Chocolate Delight $10
+Coffee Cake $5
+Pineapple Cake $20
+Cranberry Cake $25
+Cheese Cake $22
+Sponge Cake $25
+Apple Pie $2
+Cream Pie $3
+Strawberry Mimosa $2

@@ -1,0 +1,10 @@
+Orange Juice $5
+Apple Juice $3
+Lemonade $5
+Pineapple Juice $2
+Cranberry Juice $5
+Sprite $3
+Pepsi $2
+Coffee $2
+Coconut Water $5
+Tea $2

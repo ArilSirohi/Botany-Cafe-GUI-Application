@@ -1,0 +1,10 @@
+Pizza Large $5
+Pizza small $2
+Burger $2
+Ravoli $3
+French Fries $2
+Hot Dog $2
+Chicken Wrap $3
+Chicken Grilled $2
+Salad $5
+Steamed Rice $5

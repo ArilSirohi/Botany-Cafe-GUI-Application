@@ -1,0 +1,504 @@
+# my.kv
+
+<Display>:
+
+	user_username: username
+	user_password: password
+	new_username: new_username
+	new_password: new_password
+	#items_list	 : item_list
+	item_name: item_name
+	quantity: quantity 
+	user_age:age
+	message: label1
+	user_address: address
+	
+	canvas:
+		Color:
+			rgba: 0,0,0,1
+		Rectangle:
+			size: self.size
+			pos: self.pos
+			source: 'testimage3.jpg'
+
+	Screen:
+		name: 'home_screen'
+		BoxLayout:
+			orientation: 'vertical'
+			padding:30,30,30,30
+			spacing:10
+
+			Label:
+				text: 'Welcome to Online Ordering Application!'
+				font_size: 32
+				bold: True
+			Label:
+				text: root.my_text
+				font_size: 16
+				bold: True
+			Button:
+				text: 'Login'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					root.current = 'login_screen'
+					root.logged_in()
+
+			Button:
+				text: 'New Account'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					root.current = 'new_account_screen'
+					#root.current = 'scrollview_screen'
+					
+			Button:
+				text: 'Help'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					root.current = 'Help'
+	
+	Screen:
+		name: 'login_screen'
+		BoxLayout:
+
+			orientation: 'vertical'
+			padding:30,30,30,30
+			spacing:10
+			Label:
+				text: 'Username'
+				font_size: 32
+				bold: True
+
+			TextInput:
+				id: username
+				hint_text: 'Enter your Username'
+
+			Label:
+				id: label1
+				text: 'Password'
+				font_size: 32
+				bold: True
+			TextInput: 
+				id: password
+				hint_text: 'Enter your Password'
+
+			Label:
+				text: root.error_message
+			
+			Button:
+				text: 'Menu'
+				font_size: 32
+				bold: True 
+				disabled: not root.count_enabled
+				on_release:
+					root.current = 'item_category_screen'
+					root.return_status()
+			Button:
+				text: 'Login'
+				font_size: 32
+				bold: True 
+				on_release:
+					#root.current = 'item_screen'
+					root.login_status()
+			Button:
+				text: 'Return'
+				font_size: 32
+				bold: True
+				on_release:
+					root.current = 'home_screen'	
+					root.return_status()
+	Screen:
+		name: 'new_account_screen'
+		BoxLayout:
+			orientation: 'vertical'
+			padding:10,10,10,10
+			spacing:10
+
+			Label:
+				text: 'Please enter a username'
+				font_size: 32
+				bold: True
+
+			TextInput:
+				id: new_username
+				hint_text: 'Enter your Username'
+
+			Label:
+				text: 'Enter your age'
+				font_size: 32
+				bold: True
+
+			TextInput:
+				id: age
+				hint_text: 'you must be over 16'
+
+			Label:
+				text: 'Please enter a password' 
+				font_size: 32
+				bold: True
+
+			TextInput:
+				id: new_password
+				hint_text: 'Enter your Password'
+
+			Label: 
+				text: root.error_message_2
+
+			Button:
+				text: 'Enter'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					#root.current = 'home_screen'
+					root.new_account()
+			Button:
+				text: 'return'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					root.current = 'home_screen'
+					root.return_status()
+
+	Screen:
+		name: 'item_category_screen'
+		BoxLayout:
+			orientation: 'vertical'
+			padding:10,10,10,10
+			spacing:10
+
+			Label:
+				text: 'Please choose a category'
+				font_size: 32
+				bold: True
+
+			Label:
+				text: root.error_message_2 
+				font_size: 32
+				bold: True
+
+			Label: 
+				text: root.error_message_2
+
+			Button:
+				text: 'Food'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					root.category_1()
+					root.current = 'scrollview_screen'
+			Button:
+				text: 'Beverages'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					root.category_2()
+					root.current = 'scrollview_screen'
+			Button:
+				text: 'Special Items'
+				size: 100,50
+				font_size: 32
+				bold: True
+				on_release:
+					root.category_3()
+					root.current = 'scrollview_screen'
+
+	Screen:
+		name: 'Help'
+		BoxLayout:
+			orientation: 'horizontal'
+			padding:10,10,10,10
+			spacing:10
+
+			Label:
+				text: username.text
+				font_size: 32
+				bold: True
+			Label:
+				text: password.text 
+				font_size: 32
+				bold: True
+			Button:
+				text: 'return'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					root.current = 'home_screen'
+
+
+	Screen:
+		name: 'scrollview_screen'
+		canvas:
+			Color:
+				rgba: 1,1,1,1
+			Rectangle:
+				size: self.size
+				pos: self.pos
+				source: 'testimage3.jpg'
+
+		#canvas.before:
+		#	Rectangle:
+		#		pos:self.pos
+		#		size:self.size
+
+		ScrollView:
+			size_hint_y: 0.73
+			pos_hint:{'x':0, 'y': .11}
+			do_scroll_x:False
+			do_scroll_y:True
+
+			
+			GridLayout:
+				size:(root.width, root.height)
+				cols: 3
+				size_hint_x: None
+				size_hint_y: None
+				height: self.minimum_height
+
+				BoxLayout:
+
+					orientation: 'vertical'
+					padding:10,10,10,10
+					spacing:10
+
+					Label:
+						text:root.item_message
+
+
+					TextInput:
+						id: item_name
+						hint_text: 'Enter item number'
+
+					TextInput:
+						id: quantity
+						hint_text: 'Enter quantity'
+
+					Button:
+						text: 'View Cart'
+						size: 100,50
+						font_size: 32
+						bold: True
+						on_release:
+							print('ger')
+							root.view_cart()
+							root.current = 'view_cart_screen'
+							#root.current: 'home_screen'
+
+					Button:
+						text: 'Add to Cart'
+						size:100, 50
+						font_size: 32
+						bold: True
+						on_release:
+							root.add_item()
+
+					Button:
+						text: 'return'
+						size:50, 50
+						font_size: 32
+						bold: True
+						on_release:
+							root.current = 'item_category_screen'
+							#root.return_status()
+							root.clean_cart()
+
+					Button:
+						text: 'Log Out'
+						size:50, 50
+						font_size: 32
+						bold: True
+						on_release:
+							root.current = 'home_screen'
+							root.return_status()
+
+				BoxLayout:
+
+					orientation: 'vertical'
+					padding:10,10,10,10
+					spacing:10
+
+					#Button:
+					#	text:'Button 1'
+
+					Label:
+						text: root.items
+						font_size: 32
+						bold: True
+
+	Screen:
+		name: 'view_cart_screen'
+		BoxLayout:
+			orientation: 'vertical'
+			padding:10,10,10,10
+			spacing:10
+
+			Label:
+				# items names with price 
+				text: root.cart_message
+				font_size: 32
+				bold: True
+			Label:
+				text: root.items
+				font_size: 32
+				bold: True
+			
+			Button:
+				text: 'Choose Delivery'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					root.current = 'delievery_screen'
+			Button:
+				text: 'Delete Cart'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					#root.clean_cart()
+					root.return_status()
+					root.current = 'item_category_screen'
+			Button:
+				text: 'Categories'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					root.current = 'item_category_screen'
+					#root.return_status()
+
+	Screen:
+		name: 'delievery_screen'
+		BoxLayout:
+			orientation: 'vertical'
+			padding:10,10,10,10
+			spacing:10
+
+			Label:
+				# items names with price 
+				text: f'Please choose a delivery method.\n Home Delivery is $2'
+				font_size: 32
+				bold: True
+
+			Label:
+				# items names with price 
+				text: root.delievery_message
+				font_size: 32
+				bold: True
+
+			Button:
+				text: 'Home Delivery'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					root.current = 'address_screen'
+
+			Button:
+				text: 'Online'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					root.confirmed_order()
+					#root.order_message()
+					 
+			Button:
+				text: 'return'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					root.current = 'view_cart_screen'
+					#root.return_status()
+	Screen:
+		name: 'address_screen'
+		BoxLayout:
+			orientation: 'vertical'
+			padding:10,10,10,10
+			spacing:10
+
+			Label:
+				# items names with price 
+				text: 'Enter your Address'
+				font_size: 32
+				bold: True
+
+			TextInput:
+				id: address
+				hint_text: 'enter your address'
+
+
+			Label:
+				# items names with price 
+				text: root.delievery_message
+				font_size: 32
+				bold: True
+
+			Button:
+				text: 'Confirm Order'
+				size:100, 50
+				font_size: 32
+				bold: True
+				disabled: root.delievery_confirmed
+				on_release:
+					root.confirmed_order_home()
+				
+			Button:
+				text: 'Another Order'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					root.current = 'item_category_screen'
+					root.return_status()
+
+			Button:
+				text: 'Log Out'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					root.current = 'home_screen'
+					root.return_status()
+
+	Screen:
+		name: 'closing_screen'
+		BoxLayout:
+			orientation: 'vertical'
+			padding:10,10,10,10
+			spacing:10
+
+			Label:
+				# items names with price 
+				text: 'Thank You fr Shoppping with us!'
+				font_size: 32
+				bold: True
+
+		
+
+
+
+
+
+
+
+
+				
+
+
+				
+					
+
+
+
+</Display>
