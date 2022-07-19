@@ -1,0 +1,63 @@
+<Display>:
+	mainname1: firstname
+	mainname2: secondname
+	canvas:
+		Color:
+			rgba: 0,0.75,0,1
+		Rectangle:
+			size: self.size
+			pos: self.pos
+			source: 'testimage1.jpg'
+	Screen:
+		name: 'screen1'
+		BoxLayout:
+			orientation: 'vertical'
+			padding:10,10,10,10
+			spacing:10
+			Label:
+				text: 'First Name'
+				font_size: 32
+				bold: True
+			TextInput:
+				id: firstname
+				hint_text: 'Enter your First Name'
+			Label:
+				id: label1
+				text: 'Second Name'
+				font_size: 32
+				bold: True
+			TextInput: 
+				id: secondname
+				hint_text: 'Enter Second Name'
+			Button:
+				text: 'Button1'
+				font_size: 32
+				bold: True 
+				on_release:
+					root.current = 'screen2'
+			Button:
+				text: 'print'
+				font_size: 32
+				bold: True
+				on_release:
+					root.buttonclicked()
+
+	Screen:
+		name: 'screen2'
+		BoxLayout:
+			orientation: 'horizontal'
+			Label:
+				text: firstname.text
+				font_size: 32
+				bold: True
+			Label:
+				text: secondname.text 
+				font_size: 32
+				bold: True
+			Button:
+				text: 'return'
+				size:100, 50
+				font_size: 32
+				bold: True
+				on_release:
+					root.current = 'screen1'
